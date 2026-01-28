@@ -13,11 +13,11 @@ const vuePackage = require(VUE_PACKAGE_JSON_PATH);
 const version = corePackage.version;
 
 reactPackage.version = version;
-reactPackage.dependencies['@toast-ui/calendar'] = `^${version}`;
+reactPackage.dependencies['@tlmgo/tui-calendar'] = `^${version}`;
 
 fs.writeFileSync(REACT_PACKAGE_JSON_PATH, `${JSON.stringify(reactPackage, null, 2)}\n`);
 
 vuePackage.version = version;
-vuePackage.dependencies['@toast-ui/calendar'] = `^${version}`;
+vuePackage.dependencies['@tlmgo/tui-calendar'] = `^${version}`;
 
 fs.writeFileSync(VUE_PACKAGE_JSON_PATH, `${JSON.stringify(vuePackage, null, 2)}\n`);
