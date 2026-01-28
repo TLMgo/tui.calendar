@@ -73,12 +73,12 @@ jobs:
       - name: Publish react wrapper
         working-directory: ${{ env.REACT_WRAPPER_DIRECTORY }}
         run: |
-          npm publish
+          npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Publish vue wrapper
         working-directory: ${{ env.VUE_WRAPPER_DIRECTORY }}
         run: |
-          npm publish
+          npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
