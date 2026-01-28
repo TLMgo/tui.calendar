@@ -33,6 +33,7 @@ jobs:
         with:
           node-version: '18'
           registry-url: 'https://registry.npmjs.org'
+          scope: '@tlmgo'
       - name: Install dependencies
         uses: ./.github/composite-actions/install-dependencies
       - name: Build calendar
