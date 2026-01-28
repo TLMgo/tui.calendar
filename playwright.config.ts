@@ -23,7 +23,7 @@ const config: PlaywrightTestConfig = {
     timezoneId: 'Asia/Seoul',
   },
   webServer: {
-    command: isCI ? 'npm run serve:storybook' : 'npm run storybook --workspace=@toast-ui/calendar',
+    command: isCI ? 'npm run serve:storybook' : 'npm run storybook --workspace=@tlmgo/tui-calendar',
     port: isCI ? 8080 : 6006,
     timeout: 120 * 1000,
     reuseExistingServer: !isCI,

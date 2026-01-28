@@ -1,1 +1,1 @@
-export const MESSAGE_PREFIX = '@toast-ui/calendar: ';
+export const MESSAGE_PREFIX = '@tlmgo/tui-calendar: ';

@@ -71,7 +71,7 @@
 <script>
 /* eslint-disable no-console */
 import ToastUICalendar from '../src/Calendar';
-import '@toast-ui/calendar/toastui-calendar.css';
+import '@tlmgo/tui-calendar/toastui-calendar.css';
 import 'tui-date-picker/dist/tui-date-picker.min.css';
 import 'tui-time-picker/dist/tui-time-picker.min.css';
 

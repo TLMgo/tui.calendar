@@ -1,5 +1,5 @@
-import type { EventObject, ExternalEventTypes, Options } from '@toast-ui/calendar';
-import ToastUICalendar from '@toast-ui/calendar';
+import type { EventObject, ExternalEventTypes, Options } from '@tlmgo/tui-calendar';
+import ToastUICalendar from '@tlmgo/tui-calendar';
 import React from 'react';
 
 import { isEqual } from './isEqual';

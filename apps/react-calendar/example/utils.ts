@@ -1,4 +1,4 @@
-import { TZDate } from '@toast-ui/calendar';
+import { TZDate } from '@tlmgo/tui-calendar';
 
 export function clone(date: TZDate): TZDate {
   return new TZDate(date);

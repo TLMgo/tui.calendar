@@ -1,5 +1,5 @@
 import type Vue from 'vue';
-import type Calendar from '@toast-ui/calendar';
+import type Calendar from '@tlmgo/tui-calendar';
 
 export default class VueCalendar extends Vue {
   getRootElement(): HTMLDivElement;

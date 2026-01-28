@@ -17,13 +17,15 @@ export function useTimeGridScrollSync(scrollArea: HTMLDivElement | null, rowCoun
       draggingState === DraggingState.DRAGGING &&
       isPresent(y)
     ) {
-      const { offsetTop, offsetHeight, scrollHeight } = scrollArea;
+      const { offsetHeight, scrollHeight } = scrollArea;
+      const { top: scrollAreaTop } = scrollArea.getBoundingClientRect();
+
       // Set minimum scroll boundary to the height of one row.
       const scrollBoundary = Math.floor(scrollHeight / rowCount);
-      const layoutHeight = offsetTop + offsetHeight;
+      const layoutHeight = scrollAreaTop + offsetHeight;
 
-      if (y < offsetTop + scrollBoundary) {
-        const scrollDiff = y - (offsetTop + scrollBoundary);
+      if (y < scrollAreaTop + scrollBoundary) {
+        const scrollDiff = y - (scrollAreaTop + scrollBoundary);
         scrollArea.scrollTop = Math.max(0, scrollArea.scrollTop + scrollDiff);
       } else if (y > layoutHeight - scrollBoundary) {
         const scrollDiff = y - (layoutHeight - scrollBoundary);

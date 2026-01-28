@@ -56,7 +56,7 @@ export default defineConfig(({ command, mode }) => {
     Object.assign(buildConfig, {
       resolve: {
         alias: {
-          '@toast-ui/calendar': '@toast-ui/calendar/ie11',
+          '@tlmgo/tui-calendar': '@tlmgo/tui-calendar/ie11',
         },
       },
     });
