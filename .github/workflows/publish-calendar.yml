@@ -52,21 +52,3 @@ jobs:
           npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-
-  publish-cdn:
-    needs: publish-npm
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout branch
-        uses: actions/checkout@v3
-      - uses: ./.github/composite-actions/install-dependencies
-      - name: Upload files to CDN
-        working-directory: ${{ env.WORKING_DIRECTORY }}
-        run: |
-          npm run build
-          npm run publish:cdn
-        env:
-          TOAST_CLOUD_TENANTID: ${{ secrets.TOAST_CLOUD_TENANTID }}
-          TOAST_CLOUD_STORAGEID: ${{ secrets.TOAST_CLOUD_STORAGEID }}
-          TOAST_CLOUD_USERNAME: ${{ secrets.TOAST_CLOUD_USERNAME }}
-          TOAST_CLOUD_PASSWORD: ${{ secrets.TOAST_CLOUD_PASSWORD }}
