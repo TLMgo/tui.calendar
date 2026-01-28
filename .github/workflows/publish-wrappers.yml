@@ -52,8 +52,6 @@ jobs:
         run: |
           rm -rf ./apps/react-calendar/package-lock.json
           rm -rf ./apps/vue-calendar/package-lock.json
-          git config --local user.name "lja1018"
-          git config --local user.email "jaeeon.lim@nhn.com"
           git add .
           git commit -m "chore: update version of wrappers to v${{ steps.version.outputs.committed-version }}"
       - name: Push version update commit
