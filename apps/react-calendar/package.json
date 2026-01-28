@@ -1,6 +1,6 @@
 {
   "name": "@tlmgo/tui-react-calendar",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "license": "MIT",
   "description": "TOAST UI Calendar for React",
   "author": "NHN Cloud FE Development Lab <dl_javascript@nhn.com>",
@@ -57,7 +57,7 @@
     "build:types": "rimraf types/ && tsc -p ./tsconfig.declaration.json"
   },
   "dependencies": {
-    "@tlmgo/tui-calendar": "^2.2.0"
+    "@tlmgo/tui-calendar": "^2.2.1"
   },
   "devDependencies": {
     "@types/react": "^17.0.2",
