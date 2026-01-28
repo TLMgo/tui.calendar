@@ -54,4 +54,6 @@ jobs:
       - name: Publish the package to npm (Calendar)
         working-directory: ${{ env.WORKING_DIRECTORY }}
         run: |
-          NODE_AUTH_TOKEN="" npm publish --access public
+          npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
