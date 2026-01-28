@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout branch
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Check the package version
         id: cpv
         uses: PostHog/check-package-version@v2
@@ -24,7 +24,12 @@ jobs:
     needs: check-version
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          registry-url: 'https://registry.npmjs.org'
       - name: Install dependencies
         uses: ./.github/composite-actions/install-dependencies
       - name: Build calendar
@@ -50,5 +55,3 @@ jobs:
         working-directory: ${{ env.WORKING_DIRECTORY }}
         run: |
           npm publish --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
