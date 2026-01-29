@@ -102,6 +102,36 @@ describe('times controller', () => {
         )
       ).toBeLessThanOrEqual(50);
     });
+
+    it('On a daylight change', () => {
+      // 2020-05-16T00:00:00 is middle time between 2020-01-01T00:00:00 and 2021-01-01T00:00:00. return 50%
+      // at a daylight change
+      expect(
+        getTopPercentByTime(
+          new TZDate('2026-03-08T12:00:00'),
+          new TZDate('2026-03-08T00:00:00'),
+          new TZDate('2026-03-09T00:00:00')
+        )
+      ).toBe(50);
+    });
+
+    it('On a year change', () => {
+      expect(
+        getTopPercentByTime(
+          new TZDate('2026-01-01T12:00:00'),
+          new TZDate('2026-01-01T00:00:00'),
+          new TZDate('2026-01-02T00:00:00')
+        )
+      ).toBe(50);
+      expect(
+        getTopPercentByTime(
+          new TZDate('2025-12-31T12:00:00'),
+          new TZDate('2025-12-31T00:00:00'),
+          new TZDate('2026-01-01T00:00:00')
+        )
+      ).toBe(50);
+    });
+
   });
 
   it('getPrevGridTime', () => {
