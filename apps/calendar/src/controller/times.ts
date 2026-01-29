@@ -5,15 +5,33 @@ import { limit, ratio } from '@src/utils/math';
 import type { TimeUnit } from '@t/events';
 
 /**
+ * Convert a date to UTC milliseconds using its local time components.
+ * This avoids DST issues by treating the local time as if it were UTC.
+ */
+function toUTCTime(d: TZDate) {
+  return Date.UTC(
+    d.getFullYear(),
+    d.getMonth(),
+    d.getDate(),
+    d.getHours(),
+    d.getMinutes(),
+    d.getSeconds(),
+    d.getMilliseconds()
+  );
+}
+
+/**
  * @param date
  * @param {TZDate} [start] - start time
  * @param {TZDate} [end] - end time
  * @returns {number} The percent value represent current time between start and end
  */
 export function getTopPercentByTime(date: TZDate, start: TZDate, end: TZDate) {
-  const startTime = start.getTime();
-  const endTime = end.getTime();
-  const time = limit(date.getTime(), [startTime], [endTime]) - startTime;
+  // Convert to UTC to avoid DST issues.
+  // This ensures 12:00 noon is always at 50% of a day, regardless of DST.
+  const startTime = toUTCTime(start);
+  const endTime = toUTCTime(end);
+  const time = limit(toUTCTime(date), [startTime], [endTime]) - startTime;
   const max = endTime - startTime;
 
   const topPercent = ratio(max, 100, time);
