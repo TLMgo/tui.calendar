@@ -131,7 +131,6 @@ describe('times controller', () => {
         )
       ).toBe(50);
     });
-
   });
 
   it('getPrevGridTime', () => {
