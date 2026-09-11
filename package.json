@@ -60,7 +60,7 @@
     "serve:storybook": "http-server ./apps/calendar/storybook-static",
     "install:date": "cd libs/date && npm install",
     "setup:date": "npm run install:date && npm run build:date",
-    "lint": "npm run lint --workspaces",
+    "lint": "npm run lint --workspaces --if-present",
     "develop": "npm run develop --workspace=@tlmgo/tui-calendar",
     "test": "jest",
     "test:watch": "jest --watch",
