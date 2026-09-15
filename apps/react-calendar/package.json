@@ -1,6 +1,6 @@
 {
   "name": "@tlmgo/tui-react-calendar",
-  "version": "2.2.3",
+  "version": "2.2.4",
   "license": "MIT",
   "description": "TOAST UI Calendar for React",
   "author": "NHN Cloud FE Development Lab <dl_javascript@nhn.com>",
