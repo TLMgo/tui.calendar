@@ -8,6 +8,12 @@ const commonConfig: UserConfigExport = {
   plugins: [
     react({
       include: '**/*.tsx',
+      // Use the classic JSX runtime so JSX compiles to `React.createElement`
+      // instead of importing a vendored `react/jsx-dev-runtime`. The dev runtime
+      // reaches into `React.__SECRET_INTERNALS_...ReactCurrentDispatcher`, which
+      // React 19 removed, crashing the calendar on mount (BD-2697). The classic
+      // runtime only needs the already-externalized `React` global.
+      jsxRuntime: 'classic',
     }),
   ],
 };
