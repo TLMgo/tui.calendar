@@ -5,8 +5,6 @@ import { createEventCollection } from '@src/controller/base';
 import { useTZConverter } from '@src/hooks/timezone/useTZConverter';
 import type EventModel from '@src/model/eventModel';
 import { primaryTimezoneSelector } from '@src/selectors/timezone';
-import TZDate from '@src/time/date';
-import { isUsingDST } from '@src/time/timezone';
 import type Collection from '@src/utils/collection';
 import { clone } from '@src/utils/object';
 
@@ -19,7 +17,6 @@ export function useEventsWithTimezone(events: Collection<EventModel>) {
       return events;
     }
 
-    const isSystemUsingDST = isUsingDST(new TZDate());
     const {
       timedEvents = createEventCollection(),
       totalEvents = createEventCollection(),
@@ -30,28 +27,8 @@ export function useEventsWithTimezone(events: Collection<EventModel>) {
     timedEvents.each((eventModel) => {
       const clonedEventModel = clone(eventModel);
 
-      let zonedStart = tzConverter(primaryTimezoneName, clonedEventModel.start);
-      let zonedEnd = tzConverter(primaryTimezoneName, clonedEventModel.end);
-
-      // Adjust the start and end time to the system timezone.
-      if (isSystemUsingDST) {
-        if (!isUsingDST(zonedStart)) {
-          zonedStart = zonedStart.addHours(1);
-        }
-        if (!isUsingDST(zonedEnd)) {
-          zonedEnd = zonedEnd.addHours(1);
-        }
-      } else {
-        if (isUsingDST(zonedStart)) {
-          zonedStart = zonedStart.addHours(-1);
-        }
-        if (isUsingDST(zonedEnd)) {
-          zonedEnd = zonedEnd.addHours(-1);
-        }
-      }
-
-      clonedEventModel.start = zonedStart;
-      clonedEventModel.end = zonedEnd;
+      clonedEventModel.start = tzConverter(primaryTimezoneName, clonedEventModel.start);
+      clonedEventModel.end = tzConverter(primaryTimezoneName, clonedEventModel.end);
 
       totalEvents.add(clonedEventModel);
     });

@@ -1,15 +1,23 @@
 import type { DateInterface } from '@toast-ui/date';
 
 import { MS_PER_MINUTES } from '@src/time/datetime';
-import {
-  calculateTimezoneOffset,
-  date as createDate,
-  getLocalTimezoneOffset,
-} from '@src/time/timezone';
+import { calculateTimezoneOffset, date as createDate } from '@src/time/timezone';
 import { isPresent, isString } from '@src/utils/type';
 
-function getTZOffsetMSDifference(offset: number) {
-  return (getLocalTimezoneOffset() - offset) * MS_PER_MINUTES;
+function getLocalTimezoneOffsetMSAt(time: number) {
+  return -new Date(time).getTimezoneOffset() * MS_PER_MINUTES;
+}
+
+function toSystemWallClock(time: number, offset: number) {
+  const wallClockTime = time + offset * MS_PER_MINUTES;
+  // The offset must be read at the result, which isn't known yet, so estimate the result first.
+  const estimate = wallClockTime - getLocalTimezoneOffsetMSAt(wallClockTime);
+
+  return wallClockTime - getLocalTimezoneOffsetMSAt(estimate);
+}
+
+function fromSystemWallClock(time: number, offset: number) {
+  return time + getLocalTimezoneOffsetMSAt(time) - offset * MS_PER_MINUTES;
 }
 
 /**
@@ -332,7 +340,7 @@ export default class TZDate {
 
     const tzOffset = isString(tzValue) ? calculateTimezoneOffset(tzValue, this) : tzValue;
 
-    const newTZDate = new TZDate(this.getTime() - getTZOffsetMSDifference(tzOffset));
+    const newTZDate = new TZDate(toSystemWallClock(this.getTime(), tzOffset));
     newTZDate.tzOffset = tzOffset;
 
     return newTZDate;
@@ -351,11 +359,11 @@ export default class TZDate {
   local(tzValue?: string | number) {
     if (isPresent(tzValue)) {
       const tzOffset = isString(tzValue) ? calculateTimezoneOffset(tzValue, this) : tzValue;
-      return new TZDate(this.getTime() + getTZOffsetMSDifference(tzOffset));
+      return new TZDate(fromSystemWallClock(this.getTime(), tzOffset));
     }
 
     return new TZDate(
-      this.getTime() + (isPresent(this.tzOffset) ? getTZOffsetMSDifference(this.tzOffset) : 0)
+      isPresent(this.tzOffset) ? fromSystemWallClock(this.getTime(), this.tzOffset) : this.getTime()
     );
   }
 }
